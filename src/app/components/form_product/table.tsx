@@ -25,6 +25,7 @@ interface IFormInput {
     prazo_max: String;
   }
 
+console.log("Renderizou a tabela")
 
 export default function Table_Product(){
     const {state, removeProduct} = useContext<any>(GlobalContext)
@@ -43,7 +44,8 @@ export default function Table_Product(){
                     <TableHead>Descrição</TableHead>
                 </TableRow>
             </TableHeader >
-            <TableBody >
+            <TableBody className="overflow-y-scroll">
+
                 {state?.map((item:IFormInput)=>{
                     const {id,quantidade,valor_uni,valor_total,peso,volume,prazo_min,prazo_max,descricao} = item
                     return(
@@ -62,6 +64,7 @@ export default function Table_Product(){
                         </TableRow>
                     )
                 })}
+               
             </TableBody>
         </Table>
     )

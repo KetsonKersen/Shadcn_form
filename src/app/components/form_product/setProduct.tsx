@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { GlobalContext } from "./store";
 
 export default function SetProduct(){
@@ -26,62 +26,123 @@ export default function SetProduct(){
     }
     const watchQuantidade = watch("quantidade")
     const watchValorUni = watch("valor_uni")
-
-
-    const [calc,setCalc] = useState(0)
+    
+    const [calc,setCalc] = useState('')
+    
     useEffect(()=>{
         let res:number = (Number(watchQuantidade) * Number(watchValorUni))
         if(!Number.isNaN(res)){
-            setCalc(res)
+            const formatted = new Intl.NumberFormat("pt-br", {style: "currency", currency: "BRL"}).format(res)
+            setCalc(formatted)
         }
     },[watchQuantidade, watchValorUni])
+    
+    console.log("Renderizou o form")
 
-    return(
-        <div className="flex flex-col gap-2">
-            <h3>Descrição do Produto/Serviço</h3>
-            <hr></hr>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+    function fieldsDescriptionProducts(){
+        return(
+            <div className="flex flex-col gap-2">
+                <h3>Descrição do Produto/Serviço</h3>
+                <hr></hr>
                 <div>
                     <label>
                         Quantidade
-                        <Input {...register("quantidade")}/>
+                        <Input {...register("quantidade")} placeholder="0"/>
                     </label>
                     <label>
                         Valor unitario
-                        <Input {...register("valor_uni")}/>
+                        <Input {...register("valor_uni")} placeholder="0"/>
                     </label>
                     <label>
                         Peso
-                        <Input {...register("peso")}/>
+                        <Input {...register("peso")} placeholder="0kg"/>
                     </label>
                 </div>
                 <div>
                     <label>
                         Volume
-                        <Input {...register("volume")}/>
+                        <Input {...register("volume")} placeholder="0"/>
                     </label>
                     <label>
                         Valor Total
-                        <Input value={calc} {...register("valor_total")}/>
+                        <Input defaultValue={calc} {...register("valor_total")} placeholder="R$0"/>
                     </label>
                 </div>
                 <div>
                     <label>
                         Descrição
-                        <Input {...register("descricao")}/>
+                        <Input {...register("descricao")} placeholder="..."/>
                     </label>
                 </div>
                 <div>
                     <label>
                         Prazo minimo
-                        <Input {...register("prazo_min")}/>
+                        <Input {...register("prazo_min")} placeholder="00/00/00"/>
                     </label>
                     <label>
                         Prazo maximo
-                        <Input {...register("prazo_max")}/>
+                        <Input {...register("prazo_max")} placeholder="00/00/00"/>
                     </label>
                 </div>
-                <Button>ENVIAR</Button>
+            </div>
+        )
+    }
+
+    function fieldsMoreInf(){
+        return(
+            <div className="flex flex-col gap-2">
+                <h3>Mais informações</h3>
+                <hr></hr>
+                    <div>
+                        <label>
+                            Valor do frete
+                            <Input/>
+                        </label>
+                        <label>
+                            Desconto
+                            <Input/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Total dos Produtos/Serviços
+                            <Input/>
+                        </label>
+                        <label>
+                            Total da nota
+                            <Input/>
+                        </label>
+                        <label>
+                            Pedido de referencia
+                            <Input/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Peso total
+                            <Input/>
+                        </label>
+                        <label>
+                            Volume total
+                            <Input/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Obs.
+                            <Input/>
+                        </label>
+                    </div>
+            </div>
+        )
+    }
+
+    return(
+        <div className="flex flex-col gap-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+                { fieldsDescriptionProducts() }
+                { fieldsMoreInf() }
+                <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
             </form>
         </div>
     )

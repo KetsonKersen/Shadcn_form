@@ -22,7 +22,7 @@ export const GlobalProvider = ({children}:any)=>{
             const data:any = localStorage.getItem("products")
             setState(JSON.parse(data))
         }
-    },[])
+    },[setState])
 
     function addProduct(product:Iproduct){
         Object.assign(product, {id: Math.floor( Math.random()*999 )})

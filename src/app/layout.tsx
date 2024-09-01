@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Shadcn Form",
-  description: "Formulario utilizando shadcn e react-form",
+  description: "Formulario utilizando shadcn e react-form.",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt">
+    <html lang="pt-br">
       <body className={inter.className}>{children}</body>
     </html>
   );

@@ -1,5 +1,7 @@
+import Form_Product from "./components/form_product";
+
 export default function Home() {
   return (
-    <p>Hello Shad!</p>
+    <Form_Product/>
   );
 }

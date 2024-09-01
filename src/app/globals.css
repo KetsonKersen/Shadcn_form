@@ -85,4 +85,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  form{
+    @apply gap-4
+  }
+  form div{ 
+    @apply flex w-full gap-4
+  }
+  label{
+    @apply w-full text-sm
+  }
 }

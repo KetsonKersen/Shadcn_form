@@ -196,7 +196,7 @@ function SetProduct({...props}:any){
     }
 
     return(
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 p-4 rounded-md border-[1px] border-zinc-200">
             <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
                 { fieldsDescriptionProducts() }
                 { fieldsMoreInf() }

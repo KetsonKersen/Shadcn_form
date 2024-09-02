@@ -94,4 +94,10 @@
   label{
     @apply w-full text-sm
   }
+  th,td{
+    @apply border-r-[1px] border-zinc-200 text-center
+  }
+  th:last-of-type,td:last-of-type{
+    @apply border-none
+  }
 }

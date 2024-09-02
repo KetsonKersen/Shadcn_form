@@ -8,19 +8,19 @@ function Table_Product({...props}:any){
     const {stateData, removeProduct} = props
 
     return(
-        <div className="h-[460px] flex flex-col justify-between">
+        <div className="h-[460px] flex flex-col justify-between bg-zinc-50 border-[1px] border-zinc-200 rounded-md shadow-md">
             <Table className="rounded-md bg-zinc-50 overflow-hidden">
                 <TableHeader className="bg-zinc-100">
                     <TableRow>
                         <TableHead className="w-10">Ações</TableHead>
-                        <TableHead>Quantidade</TableHead>
-                        <TableHead>Valor unitario</TableHead>
-                        <TableHead>Valor</TableHead>
-                        <TableHead>Peso</TableHead>
-                        <TableHead>Volume</TableHead>
-                        <TableHead>Prazo minimo</TableHead>
-                        <TableHead>Prazo maximo</TableHead>
-                        <TableHead>Descrição</TableHead>
+                        <TableHead className="text-center">Quantidade</TableHead>
+                        <TableHead className="text-center">Valor unitario</TableHead>
+                        <TableHead className="text-center">Valor</TableHead>
+                        <TableHead className="text-center">Peso</TableHead>
+                        <TableHead className="text-center">Volume</TableHead>
+                        <TableHead className="text-center">Prazo minimo</TableHead>
+                        <TableHead className="text-center">Prazo maximo</TableHead>
+                        <TableHead className="text-center">Descrição</TableHead>
                     </TableRow>
                 </TableHeader >
                 <TableBody>

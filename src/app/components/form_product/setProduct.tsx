@@ -172,7 +172,7 @@ function SetProduct({...props}:any){
                         </label>
                         <label>
                             Pedido de referencia
-                            <Input required/>
+                            <Input {...register("referencia")} required/>
                         </label>
                     </div>
                     <div>

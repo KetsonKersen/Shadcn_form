@@ -13,14 +13,14 @@ function Table_Product({...props}:any){
                 <TableHeader className="bg-zinc-100">
                     <TableRow>
                         <TableHead className="w-10">Ações</TableHead>
-                        <TableHead className="text-center">Quantidade</TableHead>
-                        <TableHead className="text-center">Valor unitario</TableHead>
-                        <TableHead className="text-center">Valor</TableHead>
-                        <TableHead className="text-center">Peso</TableHead>
-                        <TableHead className="text-center">Volume</TableHead>
-                        <TableHead className="text-center">Prazo minimo</TableHead>
-                        <TableHead className="text-center">Prazo maximo</TableHead>
-                        <TableHead className="text-center">Descrição</TableHead>
+                        <TableHead className="text-center w-16">Quantidade</TableHead>
+                        <TableHead className="text-center w-40">Valor unitario</TableHead>
+                        <TableHead className="text-center w-40">Valor</TableHead>
+                        <TableHead className="text-center w-16">Peso</TableHead>
+                        <TableHead className="text-center w-10">Volume</TableHead>
+                        <TableHead className="text-center w-32">Prazo minimo</TableHead>
+                        <TableHead className="text-center w-32">Prazo maximo</TableHead>
+                        <TableHead className="text-center ">Descrição</TableHead>
                     </TableRow>
                 </TableHeader >
                 <TableBody>

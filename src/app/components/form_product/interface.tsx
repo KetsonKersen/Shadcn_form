@@ -8,11 +8,14 @@ export interface Iproduct {
     descricao: String;
     prazo_min?: String;
     prazo_max?: String;
-    frete: String;
-    desconto: String
-    total_produto_servico: String;
+}
+export interface ImoreInf {
+    frete: string;
+    desconto: string;
+    total_produto_servico: string;
     total_nota: string;
-    peso_total: String;
-    volume_total: String;
     referencia: string;
+    peso_total: string;
+    volume_total: string;
+    obs: string;
 }

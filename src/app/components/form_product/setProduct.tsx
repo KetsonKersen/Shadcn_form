@@ -8,6 +8,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Iproduct } from "./interface";
+import { NumericFormat } from 'react-number-format';
 
 function SetProduct({...props}:any){
     const {addProduct} = props
@@ -15,45 +16,39 @@ function SetProduct({...props}:any){
     const { register, handleSubmit, reset, watch, setValue} = useForm<Iproduct>();
     const watchQuantidade = watch("quantidade")
     const watchValorUni = watch("valor_uni")
-    const watchFrete = watch("frete")
-    const watchDesconto = watch("desconto")
-    const watchPeso = watch("peso")
-    const watchVolume = watch("volume")
 
     const [dateMin, setDateMin] = useState<any>()
     const [dateMax, setDateMax] = useState<any>()
+
+
+    function clearForm(){
+        reset()
+        setValue("quantidade", "")
+        setValue("valor_uni", "")
+        setValue("peso", "")
+        setValue("volume", "")
+        setValue("valor_total", "")
+        setDateMin(new Date())
+        setDateMax(new Date())
+    }
 
     const onSubmit: SubmitHandler<Iproduct> = (data:{}) => {
         if(dateMin && dateMax){
             Object.assign(data, {prazo_min:format(dateMin, "dd/MM/yyyy")})
             Object.assign(data, {prazo_max:format(dateMax, "dd/MM/yyyy")})
             addProduct(data)
-            reset()
-            setDateMin(new Date())
-            setDateMax(new Date())
+            clearForm()
         }else{
             alert("Digite todos os campos")
         }
     }
 
     useEffect(()=>{
-        let res:number = (Number(watchQuantidade) * Number(watchValorUni))
+        let res:number = (Number(watchQuantidade?.replace("x","")) * Number(watchValorUni?.replace("R$","").replace(",","")))
         if(!Number.isNaN(res)){
             setValue("valor_total", JSON.stringify(res))
-
-            let produtos_servicos = Number(res) + Number(watchFrete)
-            setValue("total_produto_servico", JSON.stringify(produtos_servicos))
-            
-            let valor_nota = produtos_servicos - Number(watchDesconto)
-            setValue("total_nota", JSON.stringify(valor_nota))
-            
-            let peso_total = Number(watchQuantidade) * Number(watchPeso)
-            setValue("peso_total", JSON.stringify(peso_total))
-            
-            let volume_total = Number(watchQuantidade) * Number(watchVolume)
-            setValue("volume_total", JSON.stringify(volume_total))
         }
-    },[watchQuantidade, watchValorUni, watchFrete, watchDesconto, watchPeso, watchVolume])
+    },[watchQuantidade, watchValorUni])
 
     function fieldsDescriptionProducts(){
         return(
@@ -63,25 +58,60 @@ function SetProduct({...props}:any){
                 <div>
                     <label>
                         Quantidade
-                        <Input {...register("quantidade")} placeholder="0x" required/>
+                        <NumericFormat
+                            value={JSON.stringify(watch("quantidade"))}
+                            className="foo"
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'x'} 
+                            renderText={(value) => <Input value={value} {...register("quantidade")} placeholder="x0" required/>}
+                        />
                     </label>
                     <label>
                         Valor unitario
-                        <Input {...register("valor_uni")} placeholder="R$0" required/>
+                        <NumericFormat
+                            value={JSON.stringify(watch("valor_uni"))}
+                            className="foo"
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'R$'} 
+                            renderText={(value) => <Input value={value} {...register("valor_uni")} placeholder="R$0" required/>}
+                        />
                     </label>
                     <label>
                         Peso
-                        <Input {...register("peso")} placeholder="0kg" required/>
+                        <NumericFormat
+                            value={JSON.stringify(watch("peso"))}
+                            className="foo"
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            suffix={'kg'} 
+                            renderText={(value) => <Input value={value} {...register("peso")} placeholder="0kg" required/>}
+                        />
                     </label>
                 </div>
                 <div>
                     <label>
                         Volume
-                        <Input {...register("volume")} placeholder="0" required/>
+                        <NumericFormat
+                                value={JSON.stringify(watch("volume"))}
+                                className="foo"
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                suffix={' uni'} 
+                                renderText={(value) => <Input value={value} {...register("volume")} placeholder="0 uni" required/>}
+                            />
                     </label>
                     <label>
                         Valor Total
-                        <Input {...register("valor_total")} placeholder="R$0" required/>
+                        <NumericFormat
+                             value={JSON.stringify(watch("valor_total"))}
+                             className="foo"
+                             displayType={'text'}
+                             thousandSeparator={true}
+                             prefix={'R$'}
+                            renderText={(value) => <Input value={value} {...register("valor_total")} placeholder="R$0" required/>}
+                        />
                     </label>
                 </div>
                 <div>
@@ -146,63 +176,13 @@ function SetProduct({...props}:any){
         )
     }
 
-    function fieldsMoreInf(){
-        return(
-            <div className="flex flex-col gap-2">
-                <h3>Mais informações</h3>
-                <hr></hr>
-                    <div>
-                        <label>
-                            Valor do frete
-                            <Input {...register("frete")} placeholder="R$0" required/>
-                        </label>
-                        <label>
-                            Desconto
-                            <Input {...register("desconto")} placeholder="R$0" required/>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Total dos Produtos/Serviços
-                            <Input {...register("total_produto_servico")} placeholder="R$0" required/>
-                        </label>
-                        <label>
-                            Total da nota
-                            <Input {...register("total_nota")} placeholder="R$0" required/>
-                        </label>
-                        <label>
-                            Pedido de referencia
-                            <Input {...register("referencia")} required/>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Peso total
-                            <Input {...register("peso_total")} placeholder="0kg" required/>
-                        </label>
-                        <label>
-                            Volume total
-                            <Input {...register("volume_total")} placeholder="R$0" required/>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Obs.
-                            <Input/>
-                        </label>
-                    </div>
-            </div>
-        )
-    }
-
     return(
-        <div className="flex flex-col gap-2 p-4 rounded-md border-[1px] border-zinc-200">
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-                { fieldsDescriptionProducts() }
-                { fieldsMoreInf() }
-                <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
-            </form>
-        </div>
+       
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 rounded-md border-[1px] border-zinc-200">
+            { fieldsDescriptionProducts() }
+            <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
+        </form>
+        
     )
 }
 export default memo(SetProduct)

@@ -63,25 +63,25 @@ function SetProduct({...props}:any){
                 <div>
                     <label>
                         Quantidade
-                        <Input {...register("quantidade")} placeholder="0x"/>
+                        <Input {...register("quantidade")} placeholder="0x" required/>
                     </label>
                     <label>
                         Valor unitario
-                        <Input {...register("valor_uni")} placeholder="R$0"/>
+                        <Input {...register("valor_uni")} placeholder="R$0" required/>
                     </label>
                     <label>
                         Peso
-                        <Input {...register("peso")} placeholder="0kg"/>
+                        <Input {...register("peso")} placeholder="0kg" required/>
                     </label>
                 </div>
                 <div>
                     <label>
                         Volume
-                        <Input {...register("volume")} placeholder="0"/>
+                        <Input {...register("volume")} placeholder="0" required/>
                     </label>
                     <label>
                         Valor Total
-                        <Input {...register("valor_total")} placeholder="R$0"/>
+                        <Input {...register("valor_total")} placeholder="R$0" required/>
                     </label>
                 </div>
                 <div>
@@ -154,35 +154,35 @@ function SetProduct({...props}:any){
                     <div>
                         <label>
                             Valor do frete
-                            <Input {...register("frete")} placeholder="R$0"/>
+                            <Input {...register("frete")} placeholder="R$0" required/>
                         </label>
                         <label>
                             Desconto
-                            <Input {...register("desconto")} placeholder="R$0"/>
+                            <Input {...register("desconto")} placeholder="R$0" required/>
                         </label>
                     </div>
                     <div>
                         <label>
                             Total dos Produtos/Serviços
-                            <Input {...register("total_produto_servico")} placeholder="R$0"/>
+                            <Input {...register("total_produto_servico")} placeholder="R$0" required/>
                         </label>
                         <label>
                             Total da nota
-                            <Input {...register("total_nota")} placeholder="R$0"/>
+                            <Input {...register("total_nota")} placeholder="R$0" required/>
                         </label>
                         <label>
                             Pedido de referencia
-                            <Input/>
+                            <Input required/>
                         </label>
                     </div>
                     <div>
                         <label>
                             Peso total
-                            <Input {...register("peso_total")} placeholder="0kg"/>
+                            <Input {...register("peso_total")} placeholder="0kg" required/>
                         </label>
                         <label>
                             Volume total
-                            <Input {...register("volume_total")} placeholder="R$0"/>
+                            <Input {...register("volume_total")} placeholder="R$0" required/>
                         </label>
                     </div>
                     <div>

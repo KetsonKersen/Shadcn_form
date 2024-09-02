@@ -14,4 +14,5 @@ export interface Iproduct {
     total_nota: string;
     peso_total: String;
     volume_total: String;
+    referencia: string;
 }

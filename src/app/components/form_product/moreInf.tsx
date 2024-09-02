@@ -20,9 +20,9 @@ function MoreInf({...props}:any){
         stateData?.map((product:Iproduct)=>{
             valorServivosProdutos += Number(product.valor_total.replace("R$","").replace(",",""))
             pesoTotal += (Number(product.peso.replace("kg","")) * Number(product.quantidade.replace("x","")))
-            volumeTotal += (Number(product.volume) * Number(product.quantidade.replace("x","")))
+            volumeTotal += (Number(product.volume.replace(" uni", "")) * Number(product.quantidade.replace("x","")))
         })
-        
+
         setValue("total_produto_servico", JSON.stringify(valorServivosProdutos))
         setValue("peso_total", JSON.stringify(pesoTotal))
         setValue("volume_total", JSON.stringify(volumeTotal))

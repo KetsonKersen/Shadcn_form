@@ -1,16 +1,17 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Iproduct, ImoreInf } from "./interface";
 import { NumericFormat } from 'react-number-format';
+
 let valor_real = 0
+
 function MoreInf({...props}:any){
     const {stateData} = props
     const { register, watch, setValue} = useForm<ImoreInf>();
 
     let watchFrete = watch("frete")
     let watchDesconto = watch("desconto")
-    const watchNota = watch("total_nota")
 
     useEffect(()=>{
         let valorServivosProdutos = 0
@@ -26,33 +27,26 @@ function MoreInf({...props}:any){
         setValue("total_produto_servico", JSON.stringify(valorServivosProdutos))
         setValue("peso_total", JSON.stringify(pesoTotal))
         setValue("volume_total", JSON.stringify(volumeTotal))
-        if(watchNota != ""){
-            setValue("total_nota", JSON.stringify(valorServivosProdutos))
-        }
-
+        setValue("total_nota", JSON.stringify(valorServivosProdutos))
+    
         valor_real = valorServivosProdutos
     },[stateData])
 
     useMemo(()=>{
-        if(watchFrete == ""){
-            watchFrete = "0"
-        }
-        if(watchDesconto == ""){
-            watchDesconto = "0"
-        }
+        if(watchFrete == "") watchFrete = "0"
+        if(watchDesconto == "") watchDesconto = "0"
 
         let res = (Number(valor_real) + Number(watchFrete?.replace("R$","").replace(",",""))) - Number(watchDesconto?.replace("R$","").replace(",",""))
-        if(!stateData.length){
-            res = 0
-        }
+        if(!stateData.length) res = 0
         setValue("total_nota", JSON.stringify(res))
+        
     },[watchFrete,watchDesconto])
 
     function fieldsMoreInf(){
         return(
             <div className="flex flex-col gap-2">
                 <h3>Mais informações</h3>
-                <hr></hr>
+                <hr/>
                     <div>
                         <label>
                             Valor do frete

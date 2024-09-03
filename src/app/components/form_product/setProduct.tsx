@@ -39,7 +39,7 @@ function SetProduct({...props}:any){
             addProduct(data)
             clearForm()
         }else{
-            alert("Digite todos os campos")
+            alert("Selecione uma data minima e maxima para continuar...")
         }
     }
 
@@ -180,6 +180,7 @@ function SetProduct({...props}:any){
        
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 rounded-md border-[1px] border-zinc-200">
             { fieldsDescriptionProducts() }
+            <hr/>
             <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
         </form>
         

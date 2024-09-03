@@ -23,8 +23,8 @@ function Table_Product({...props}:any){
                         <TableHead className="text-center ">Descrição</TableHead>
                     </TableRow>
                 </TableHeader >
-                <TableBody>
 
+                <TableBody>
                     {stateData.reverse().map((product:Iproduct)=>{
                         const {id,quantidade,valor_uni,valor_total,peso,volume,prazo_min,prazo_max,descricao} = product
                         return(
@@ -43,16 +43,8 @@ function Table_Product({...props}:any){
                             </TableRow>
                         )
                     })}
-                
                 </TableBody>
             </Table>
-            {/* <div className="flex items-center justify-between">
-                <p>Total de produtos cadastrados: {stateData.length}</p>
-                <div className="flex gap-4">
-                    <Button>Voltar</Button>
-                    <Button>Proximo</Button>
-                </div>
-            </div> */}
         </div>
     )
 }

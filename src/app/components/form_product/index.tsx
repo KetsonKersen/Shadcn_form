@@ -17,7 +17,7 @@ export default function Form_Product(){
     }
 
     function removeProduct(id:number){
-        state.map((product, index)=>{
+        state.map((product:Iproduct, index:number)=>{
             if(product.id === id){
                 state.splice(index, 1)
                 const newArray = new Array(...state)
@@ -25,7 +25,6 @@ export default function Form_Product(){
                 setState(newArray)
             }
         })
-
     }
 
     return(

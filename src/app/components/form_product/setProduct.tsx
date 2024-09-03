@@ -28,8 +28,8 @@ function SetProduct({...props}:any){
         setValue("peso", "")
         setValue("volume", "")
         setValue("valor_total", "")
-        setDateMin(new Date())
-        setDateMax(new Date())
+        setDateMin("")
+        setDateMax("")
     }
 
     const onSubmit: SubmitHandler<Iproduct> = (data:{}) => {

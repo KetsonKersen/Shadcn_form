@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+// import { useForm, SubmitHandler } from "react-hook-form";
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Button } from "@/components/ui/button";
@@ -9,53 +9,31 @@ import { CalendarIcon } from "@radix-ui/react-icons"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Iproduct } from "./interface";
 import { NumericFormat } from 'react-number-format';
+import { useForm, FormProvider, useFormContext, useWatch } from "react-hook-form"
 
 function SetProduct({...props}:any){
     const {addProduct} = props
-    
-    const { register, handleSubmit, reset, watch, setValue} = useForm<Iproduct>();
-    const watchQuantidade = watch("quantidade")
-    const watchValorUni = watch("valor_uni")
-
+    const methods = useForm()
     const [dateMin, setDateMin] = useState<any>()
     const [dateMax, setDateMax] = useState<any>()
 
 
-    function clearForm(){
-        reset()
-        setValue("quantidade", "")
-        setValue("valor_uni", "")
-        setValue("peso", "")
-        setValue("volume", "")
-        setValue("valor_total", "")
-        setDateMin("")
-        setDateMax("")
-    }
-
-    const onSubmit: SubmitHandler<Iproduct> = (data:{}) => {
+    const onSubmit = (data:{}) => {
         if(dateMin && dateMax){
             Object.assign(data, {prazo_min:format(dateMin, "dd/MM/yyyy")})
             Object.assign(data, {prazo_max:format(dateMax, "dd/MM/yyyy")})
             addProduct(data)
-            clearForm()
         }else{
             alert("Selecione uma data minima e maxima para continuar...")
         }
     }
-
-    useEffect(()=>{
-        let res:number = (Number(watchQuantidade?.replace("x","")) * Number(watchValorUni?.replace("R$","").replace(",","")))
-        if(!Number.isNaN(res)){
-            setValue("valor_total", JSON.stringify(res))
-        }
-    },[watchQuantidade, watchValorUni])
 
     function fieldsDescriptionProducts(){
         return(
             <div className="flex flex-col gap-2">
                 <h3>Descrição do Produto/Serviço</h3>
                 <hr></hr>
-                <div>
+                {/* <div>
                     <label>
                         Quantidade
                         <NumericFormat
@@ -113,13 +91,20 @@ function SetProduct({...props}:any){
                             renderText={(value) => <Input value={value} {...register("valor_total")} placeholder="R$0" required/>}
                         />
                     </label>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <label>
                         Descrição
                         <Input {...register("descricao")} placeholder="Descrição..."/>
                     </label>
+                </div> */}
+
+                <div>
+                    <FildInput id={"quantidade"} format={{suffix:" uni"}}/>
+                    <FildInput id={"valor"} format={{prefix:"R$"}}/>
+                    <FildInput id={"valor_total"} format={{prefix:"R$"}}/>
                 </div>
+
                 <div>
                     <label>
                         Prazo minimo
@@ -178,12 +163,48 @@ function SetProduct({...props}:any){
 
     return(
        
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 rounded-md border-[1px] border-zinc-200">
-            { fieldsDescriptionProducts() }
-            <hr/>
-            <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
-        </form>
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                { fieldsDescriptionProducts() }
+                <hr/>
+                <Button className="w-full col-start-1 col-end-3">ENVIAR</Button>
+            </form>
+        </FormProvider>
         
     )
 }
 export default memo(SetProduct)
+
+export function FildInput(props:{id:string, format?:object}) {
+    const {id,format} = props
+    const { register, setValue} = useFormContext()
+
+    if(id=== "valor_total"){
+        let quantidade = useWatch({name:"quantidade"})
+        let valor = useWatch({name:"valor"})
+        useEffect(()=>{
+            quantidade = quantidade?.replace(" uni","")
+            valor = valor?.replace("R$","")
+
+            const res = Number(quantidade) * Number(valor)
+
+            setValue("valor_total", res)
+        },[quantidade,valor])
+    }
+    const inputValue = useWatch({name:id})
+
+    return (
+        <label>
+            {id.replace("_"," ")}
+            <NumericFormat
+                value={inputValue}
+                className="foo"
+                displayType={'text'}
+                thousandSeparator={true}
+                // prefix={'R$'}
+                {...format}
+                renderText={(value) => <Input value={value} {...register(id)} required/>}
+            />
+        </label>
+    )
+  }

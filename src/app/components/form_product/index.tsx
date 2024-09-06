@@ -4,6 +4,7 @@ import SetProduct from "./setProduct";
 import Table_Product from "./table";
 import { Iproduct } from "./interface";
 import MoreInf from "./moreInf";
+import Teste from "./teste";
 
 export default function Form_Product(){
     const data = localStorage.getItem("products")
@@ -34,6 +35,7 @@ export default function Form_Product(){
                 <MoreInf stateData={state}/>
             </div>
             <Table_Product stateData={state} removeProduct={removeProduct}/>
+            {/* <Teste/> */}
         </div>
     )
 }

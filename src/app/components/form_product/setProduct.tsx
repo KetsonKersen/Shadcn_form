@@ -20,7 +20,7 @@ function SetProduct({...props}:any){
     const [dateMin, setDateMin] = useState<any>()
     const [dateMax, setDateMax] = useState<any>()
 
-
+    
     function clearForm(){
         reset()
         setValue("quantidade", "")

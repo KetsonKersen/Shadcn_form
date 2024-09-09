@@ -4,7 +4,7 @@ import { TextField } from "@/app/form_products/components/TextField";
 
 export const formFieldSetProduct = () =>{
     return(
-        <div className="flex flex-col gap-2 p-4 rounded-md border-[1px] border-zinc-200">
+        <div className="flex flex-col gap-4 p-4 rounded-md border-[1px] border-zinc-200">
             <div className="flex flex-col gap-2">
                 <h3>Descrição do Produto/Serviço</h3>
                 <hr/>

@@ -10,9 +10,7 @@ export const setValuesMoreInf = ()=>{
     let totalPeso = 0
     let totalVolume = 0
 
-    console.log("teste")
-
-    useMemo(()=>{
+    useEffect(()=>{
         useStore.products.map((product)=>{
             totalProdutoServico += Number(product.valor_total?.replace("R$","").replace(",",""))
             totalPeso += Number(product.quantidade?.replace("X","").replace(",","")) * Number(product.peso?.replace("kg","").replace(",",""))
@@ -31,15 +29,9 @@ export const calcTotalNota = ()=>{
     let desconto = useWatch({name:"desconto"})
     let total_produto_servivo = useWatch({name:"total_produto_servico"})
 
-    if(frete == undefined){
-        frete = "0"
-    }
-    if(desconto == undefined){
-        desconto = "0"
-    }
-    if(total_produto_servivo == undefined){
-        total_produto_servivo = "0"
-    }
+    if(frete == undefined) frete = "0"
+    if(desconto == undefined) desconto = "0"
+    if(total_produto_servivo == undefined) total_produto_servivo = "0"
     
     useMemo(()=>{
         const v_frete = Number(frete?.replace("R$","").replace(",",""))

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import { useFormContext, useWatch} from "react-hook-form"
 
 export const calcValorTotal = ()=>{

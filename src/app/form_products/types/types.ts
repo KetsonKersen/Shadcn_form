@@ -9,16 +9,6 @@ export type Iproduct = {
     prazo_min?: String;
     prazo_max?: String;
 }
-export type ImoreInf = {
-    frete: string;
-    desconto: string;
-    total_produto_servico: string;
-    total_nota: string;
-    referencia: string;
-    peso_total: string;
-    volume_total: string;
-    obs: string;
-}
 export type IProductsStore = {
     products: Iproduct[],
     addProduct: (product:Iproduct)=> void,

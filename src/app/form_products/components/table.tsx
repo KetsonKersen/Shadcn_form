@@ -2,11 +2,11 @@ import { memo } from "react"
 import { Button } from "@/components/ui/button"
 import { Trash2 } from 'lucide-react';
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
-import { Iproduct } from "./interface";
+import { Iproduct } from "@/app/form_products/types/types";
+import { useProductsStore } from "../store/store";
 
-function Table_Product({...props}:any){
-    const {stateData, removeProduct} = props
-
+function Table_Product(){
+    const useStore = useProductsStore()
     return(
         <div className="h-[460px] flex flex-col justify-between bg-zinc-50 border-[1px] border-zinc-200 rounded-md shadow-md">
             <Table className="rounded-md bg-zinc-50 overflow-hidden">
@@ -25,12 +25,12 @@ function Table_Product({...props}:any){
                 </TableHeader >
 
                 <TableBody>
-                    {stateData.reverse().map((product:Iproduct)=>{
+                    {useStore.products.reverse().map((product:Iproduct)=>{
                         const {id,quantidade,valor_uni,valor_total,peso,volume,prazo_min,prazo_max,descricao} = product
                         return(
                             <TableRow key={id}>
                                 <TableCell>
-                                    <Button onClick={()=>removeProduct(id)} className="w-8 h-8 p-2"><Trash2 size={16}/></Button>
+                                    <Button onClick={()=>useStore.removeProduct(id)} className="w-8 h-8 p-2"><Trash2 size={16}/></Button>
                                 </TableCell>
                                 <TableCell>{quantidade}</TableCell>
                                 <TableCell>{valor_uni}</TableCell>

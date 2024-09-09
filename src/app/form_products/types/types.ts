@@ -27,4 +27,5 @@ export type IProductsStore = {
 export type ItextField= {
     id:string
     format?:object
+    required?: boolean
 }

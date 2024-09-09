@@ -6,7 +6,7 @@ import { calcTotalNota, setValuesMoreInf } from "../functions/calcMoreInf"
 import { ItextField } from "../types/types"
 
 export function TextField(props:ItextField) {
-    const {id , format} = props
+    const {id , format, required} = props
     const inputValue = useWatch({name:id})
     const { register } = useFormContext()
     
@@ -32,7 +32,7 @@ export function TextField(props:ItextField) {
             displayType={'text'}
             thousandSeparator={true}
             {...format}
-            renderText={(value) => <Input value={value} {...register(id)}/>}
+            renderText={(value) => <Input value={value === '' ? '' : value} {...register(id)} required={required}/>}
         />
     :
         <Input {...register(id)}/>

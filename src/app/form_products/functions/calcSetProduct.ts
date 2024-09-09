@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useFormContext, useWatch} from "react-hook-form"
 
 export const calcValorTotal = ()=>{
@@ -7,7 +7,7 @@ export const calcValorTotal = ()=>{
     let quantidade = useWatch({name:"quantidade"})
     let valor = useWatch({name:"valor_uni"})
 
-    useEffect(()=>{
+    useMemo(()=>{
         quantidade = quantidade?.replace("X","").replace(".","").replace(",","").trim()
         valor = valor?.replace("R$","").replace(".","").replace(",","").trim()
 

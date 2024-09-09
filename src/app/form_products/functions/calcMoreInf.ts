@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useFormContext, useWatch } from "react-hook-form"
 import { useProductsStore } from "../store/store"
 
@@ -10,7 +10,9 @@ export const setValuesMoreInf = ()=>{
     let totalPeso = 0
     let totalVolume = 0
 
-    useEffect(()=>{
+    console.log("teste")
+
+    useMemo(()=>{
         useStore.products.map((product)=>{
             totalProdutoServico += Number(product.valor_total?.replace("R$","").replace(",",""))
             totalPeso += Number(product.quantidade?.replace("X","").replace(",","")) * Number(product.peso?.replace("kg","").replace(",",""))
@@ -29,12 +31,22 @@ export const calcTotalNota = ()=>{
     let desconto = useWatch({name:"desconto"})
     let total_produto_servivo = useWatch({name:"total_produto_servico"})
 
-    useEffect(()=>{
-        if(frete == "") frete = "0"
-        if(desconto == "") desconto = "0"
-
-        let res = (Number(total_produto_servivo) + Number(frete?.replace("R$","").replace(",",""))) - Number(desconto?.replace("R$","").replace(",",""))
-
+    if(frete == undefined){
+        frete = "0"
+    }
+    if(desconto == undefined){
+        desconto = "0"
+    }
+    if(total_produto_servivo == undefined){
+        total_produto_servivo = "0"
+    }
+    
+    useMemo(()=>{
+        const v_frete = Number(frete?.replace("R$","").replace(",",""))
+        const v_desconto = Number(desconto?.replace("R$","").replace(",",""))
+        const v_total = Number(JSON.stringify(total_produto_servivo)?.replace("R$","").replace(",",""))
+        const res = v_total + v_frete - v_desconto
+        
         setValue("total_nota", "R$" + res)
     },[frete,desconto,total_produto_servivo])
 }

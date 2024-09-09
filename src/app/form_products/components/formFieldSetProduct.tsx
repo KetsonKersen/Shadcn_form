@@ -12,11 +12,11 @@ export const formFieldSetProduct = () =>{
                 <div>
                     <label>
                         Quantidade
-                        <TextField id={"quantidade"} format={{prefix:"X"}}/>
+                        <TextField id={"quantidade"} format={{prefix:"X"}} required={true}/>
                     </label>
                     <label>
                         Valor unitario
-                        <TextField id={"valor_uni"} format={{prefix:"R$"}}/>
+                        <TextField id={"valor_uni"} format={{prefix:"R$"}} required={true}/>
                     </label>
                     <label>
                         Valor total
@@ -27,11 +27,11 @@ export const formFieldSetProduct = () =>{
                 <div>
                     <label>
                         Peso
-                        <TextField id={"peso"} format={{suffix:"kg"}}/>
+                        <TextField id={"peso"} format={{suffix:"kg"}} required={true}/>
                     </label>
                     <label>
                         Volume
-                        <TextField id={"volume"} format={{suffix:"uni"}}/>
+                        <TextField id={"volume"} format={{suffix:"uni"}} required={true}/>
                     </label>
                 </div>
 
@@ -49,7 +49,7 @@ export const formFieldSetProduct = () =>{
                 <div>
                     <label>
                         Descrição
-                        <TextField id={"descricao"}/>
+                        <TextField id={"descricao"} required={true}/>
                     </label>
                 </div>
             </div>

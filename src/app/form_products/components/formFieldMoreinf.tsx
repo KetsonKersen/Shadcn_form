@@ -9,21 +9,21 @@ export const formFieldMoreinf = () => {
                 <div>
                     <label>
                         Valor do frete
-                        <TextField id={"frete"} format={{prefix:"R$"}}/>
+                        <TextField id={"frete"} format={{prefix:"R$"}} />
                     </label>
                     <label>
                         Desconto
-                        <TextField id={"desconto"} format={{prefix:"R$"}}/>
+                        <TextField id={"desconto"} format={{prefix:"R$"}} />
                     </label>
                 </div>
                 <div>
                     <label>
                         Total dos Produtos/Serviços
-                        <TextField id={"total_produto_servico"} format={{prefix:"R$"}}/>
+                        <TextField id={"total_produto_servico"} format={{prefix:"R$"}} />
                     </label>
                     <label>
                         Total da nota
-                        <TextField id={"total_nota"} format={{prefix:"R$"}}/>
+                        <TextField id={"total_nota"} format={{prefix:"R$"}} />
                     </label>
                 </div>
                 <div>

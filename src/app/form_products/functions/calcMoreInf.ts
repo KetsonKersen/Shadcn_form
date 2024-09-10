@@ -3,6 +3,8 @@ import { useFormContext , useWatch} from "react-hook-form"
 import { useProductsStore } from "../store/store"
 import { Iproduct } from "../types/types"
 
+
+let valorReal = 0
 export const setValuesMoreInf = ()=>{
     const useStore = useProductsStore()
     const { setValue } = useFormContext()
@@ -18,31 +20,26 @@ export const setValuesMoreInf = ()=>{
             totalVolume +=  Number(product.quantidade?.replace("X","").replace(",","")) * Number(product.volume?.replace("uni","").replace(",",""))
         })
 
-        setValue("total_nota", totalProdutoServico != 0 ? "R$"+totalProdutoServico : "")
         setValue("total_produto_servico", totalProdutoServico != 0 ? "R$"+totalProdutoServico : "")
         setValue("peso_total", totalPeso != 0 ? totalPeso+"kg" : "")
         setValue("volume_total", totalVolume != 0 ? totalVolume+"uni" : "")
+        valorReal = totalProdutoServico
     },[useStore]) 
 }
 
 export const calcTotalNota = ()=>{
-    const { setValue, watch} = useFormContext()
+    const { setValue } = useFormContext()
     
     let frete = useWatch({name:"frete"})
     let desconto = useWatch({name:"desconto"})
     let totalProdutoServico = useWatch({name:"total_produto_servico"})
 
-    if(frete == undefined) frete = "0"
-    if(desconto == undefined) desconto = "0"
-    if(totalProdutoServico == undefined) totalProdutoServico = "0"
-    
-    useMemo(()=>{
-        const v_frete = frete?.replace("R$","")?.replace(",","")
-        const v_desconto = desconto?.replace("R$","").replace(",","")
-        const v_total = totalProdutoServico?.replace("R$","").replace(",","")
-        const res = Number(v_total) + Number(v_frete) - Number(v_desconto)
-        
-        setValue("total_nota", +res)
+    useEffect(()=>{
+        frete = frete?.replace("R$","").replace(".","").replace(",","").trim()
+        desconto = desconto?.replace("R$","").replace(".","").replace(",","").trim()
+        totalProdutoServico = totalProdutoServico?.replace("R$","").replace(".","").replace(",","").trim()
+        const res = Number(totalProdutoServico) + Number(frete) - Number(desconto)
+        setValue("total_nota", res != 0 ? res +"R$" : "")
     },[frete,desconto,totalProdutoServico])
 }
 

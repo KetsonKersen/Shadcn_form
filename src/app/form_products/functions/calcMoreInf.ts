@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react"
-import { useFormContext } from "react-hook-form"
+import { useFormContext , useWatch} from "react-hook-form"
 import { useProductsStore } from "../store/store"
 import { Iproduct } from "../types/types"
 
@@ -28,9 +28,9 @@ export const setValuesMoreInf = ()=>{
 export const calcTotalNota = ()=>{
     const { setValue, watch} = useFormContext()
     
-    let frete = watch("frete")
-    let desconto = watch("desconto")
-    let totalProdutoServico = watch("total_produto_servico")
+    let frete = useWatch({name:"frete"})
+    let desconto = useWatch({name:"desconto"})
+    let totalProdutoServico = useWatch({name:"total_produto_servico"})
 
     if(frete == undefined) frete = "0"
     if(desconto == undefined) desconto = "0"

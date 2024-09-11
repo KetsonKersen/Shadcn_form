@@ -6,16 +6,14 @@ import { useMemo, useState } from "react";
 import { format } from "date-fns"
 import { cn } from "@/lib/utils";
 import { useProductsStore } from "../store/store";
+import { useRef } from "react";
 
 export const DateField = ({id}:{id:string}) =>{
     const [stateDate, setStateDate] = useState<any>()
 
     const useStore = useProductsStore()
     useMemo(()=>{
-        let date_span = document.querySelector(`#${id} > span`)
-        if(date_span?.classList.contains("clear-date")){
-            setStateDate(undefined)
-        }
+        setStateDate(undefined)
     },[useStore])
 
     return(

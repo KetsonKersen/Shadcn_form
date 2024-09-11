@@ -30,9 +30,6 @@ export const FormProducts = ()=>{
             Object.assign(product, {prazo_min:dateMin_span?.innerHTML})
             Object.assign(product, {prazo_max:dateMax_span?.innerHTML})
             useStore.addProduct(product)
-            
-            dateMin_span?.classList.add("clear-date")
-            dateMax_span?.classList.add("clear-date")
             clearForm()
         }
     }
